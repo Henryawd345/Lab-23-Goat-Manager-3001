@@ -13,7 +13,7 @@ int N_COLORS = 0;
 
 int select_goat(list<Goat> &trip);
 void delete_goat(list<Goat> &trip);
-void add_goat(list<Goat> &trip, string [], string []);
+void add_goat(list<Goat> &trip, string names[], string colors[], int nNames, int nColors);
 void display_trip(list<Goat> &trip);
 int main_menu();
 
@@ -42,7 +42,7 @@ int main() {
         switch (choice) {
             case 1:
 
-            cout << "\n[Add goat]\n";
+                add_goat(trip, names, colors, N_NAMES, N_COLORS);
                 break;
             case 2:
                 delete_goat(trip);
@@ -141,4 +141,23 @@ void delete_goat (list<Goat> &trip){
             return;
         }
     }
+}
+
+void add_goat(list<Goat> &trip,string names[], string colors[], int nNames, int nColors) {
+    if (nNames == 0 || nColors == 0){
+        cout << "\n(No names/colors loaded, cannot add.)\n";
+        return;
+    }
+    int namei = rand() % N_NAMES;
+    int colori = rand() % N_COLORS;
+    int age = rand() % (MAX_AGE + 1);
+
+    Goat g(names[namei], age, colors[colori]);
+    trip.push_back(g);
+
+    cout << "Added: " << g.get_name()
+         << " (" << g.get_age() << ", " << g.get_color() << ")\n";
+
+
+    
 }
