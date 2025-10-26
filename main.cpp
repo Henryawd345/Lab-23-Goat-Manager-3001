@@ -7,11 +7,14 @@
 using namespace std;
 
 const int SZ_NAMES = 200, SZ_COLORS = 25, MAX_AGE = 20;
+int N_NAMES = 0;
+int N_COLORS = 0;
+
 
 int select_goat(list<Goat> trip);
 void delete_goat(list<Goat> &trip);
 void add_goat(list<Goat> &trip, string [], string []);
-void display_trip(list<Goat> trip);
+void display_trip(list<Goat> &trip);
 int main_menu();
 
 int main() {
@@ -22,13 +25,13 @@ int main() {
     ifstream fin("names.txt");
     string names[SZ_NAMES];
     int i = 0;
-    while (fin >> names[i++]);
+    while (N_NAMES < SZ_NAMES && (fin >> names[N_NAMES])) N_NAMES++;
     fin.close();
 
     ifstream fin1("colors.txt");
     string colors[SZ_COLORS];
     i = 0;
-    while (fin1 >> colors[i++]);
+    while (N_COLORS < SZ_COLORS && (fin1 >> colors[N_COLORS])) N_COLORS++;
     fin1.close();
 
     list<Goat> trip;
@@ -45,7 +48,7 @@ int main() {
                 cout << "\n[Delete goat]\n";
                 break;
             case 3:
-                cout << "\n[List goats]n";
+                display_trip(trip);
                 break;
             case 4:
                 cout << "\nGoodbye! Thanks for using GOAT MANAGER 3001.\n";
@@ -73,4 +76,29 @@ int main_menu() {
     return choice;
 }
 
+void display_trip(list<Goat> &trip){
+    cout << "\nCurrent Trip (" << trip.size() << " goat" 
+        << (trip.size() == 1 ? "" : "s") << "):\n";
+    
+    if (trip.empty()) {
+        cout << "  (empty)\n";
+        return;
+    }
 
+
+    cout << left << setw(5)  << "#"
+         << left << setw(16) << "Name"
+         << left << setw(8)  << "Age"
+         << left << setw(12) << "Color" << "\n";
+    cout << string(40, '-') << "\n";
+
+    int idx = 1;
+    for (const auto& g : trip) {
+        cout << left << setw(5)  << idx++
+             << left << setw(16) << g.get_name()
+             << left << setw(8)  << g.get_age()
+             << left << setw(12) << g.get_color()
+             << "\n";
+
+    }
+}
