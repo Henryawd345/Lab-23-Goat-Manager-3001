@@ -11,7 +11,7 @@ int N_NAMES = 0;
 int N_COLORS = 0;
 
 
-int select_goat(list<Goat> trip);
+int select_goat(list<Goat> &trip);
 void delete_goat(list<Goat> &trip);
 void add_goat(list<Goat> &trip, string [], string []);
 void display_trip(list<Goat> &trip);
@@ -99,6 +99,31 @@ void display_trip(list<Goat> &trip){
              << left << setw(8)  << g.get_age()
              << left << setw(12) << g.get_color()
              << "\n";
-
     }
+}
+
+int select_goat(list<Goat> &trip) {
+    if (trip.empty()) {
+        cout << "\nNo goats to select.\n";
+        return -1;
+    }
+
+    cout << "\n";
+    int i = 1;
+    for (const auto& g : trip) {
+        cout << "[" << i << "] "
+             << g.get_name() << " ("
+             << g.get_age()  << ", "
+             << g.get_color() << ")\n";
+        i++;
+    }
+    cout << "Select #: ";
+
+    int pick;
+    
+}
+
+void delete_goat (list<Goat> &trip){
+
+
 }
