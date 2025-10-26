@@ -30,8 +30,6 @@ int main() {
     fin1.close();
 
 
-
-
     return 0;
 }
 
