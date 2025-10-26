@@ -45,7 +45,7 @@ int main() {
             cout << "\n[Add goat]\n";
                 break;
             case 2:
-                cout << "\n[Delete goat]\n";
+                delete_goat(trip);
                 break;
             case 3:
                 display_trip(trip);
@@ -120,10 +120,25 @@ int select_goat(list<Goat> &trip) {
     cout << "Select #: ";
 
     int pick;
-    
+    while (!(cin >> pick) || pick < 1 || pick >= i) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Enter 1–" << (i - 1) << ": ";
+    }
+    return pick;
 }
 
 void delete_goat (list<Goat> &trip){
+    int pick = select_goat(trip);
+    if (pick == -1) return;
 
-
+    int i = 1;
+    for (auto it = trip.begin(); it != trip.end(); it++, i++){
+        if (i == pick){
+            cout << "Removed: " << it->get_name()
+                << " (" << it->get_age() << ", " << it->get_color() << ")\n";
+            trip.erase(it);
+            return;
+        }
+    }
 }
