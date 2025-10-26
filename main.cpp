@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iomanip>
 #include <limits> 
+#include <ctime>
 #include <list>
 #include "Goat.h"
 using namespace std;
@@ -19,7 +20,6 @@ int main_menu();
 
 int main() {
     srand(time(0));
-    bool again;
 
     // read & populate arrays for names and colors
     ifstream fin("names.txt");
@@ -148,16 +148,15 @@ void add_goat(list<Goat> &trip,string names[], string colors[], int nNames, int 
         cout << "\n(No names/colors loaded, cannot add.)\n";
         return;
     }
-    int namei = rand() % N_NAMES;
-    int colori = rand() % N_COLORS;
+    int namei = rand() % nNames;
+    int colori = rand() % nColors;
     int age = rand() % (MAX_AGE + 1);
 
     Goat g(names[namei], age, colors[colori]);
     trip.push_back(g);
 
+    trip.sort();
+
     cout << "Added: " << g.get_name()
          << " (" << g.get_age() << ", " << g.get_color() << ")\n";
-
-
-    
 }
